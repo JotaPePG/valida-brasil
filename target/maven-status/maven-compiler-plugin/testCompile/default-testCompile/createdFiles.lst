@@ -1,0 +1,10 @@
+br\edu\posgraduacao\validador\ValidadorCPFTest.class
+br\edu\posgraduacao\validador\ValidadorCNPJTest$DigitosIguais.class
+br\edu\posgraduacao\validador\ValidadorCNPJTest$DigitosVerificadoresErrados.class
+br\edu\posgraduacao\validador\ValidadorCPFTest$DigitosIguais.class
+br\edu\posgraduacao\validador\ValidadorCPFTest$FormatoInvalido.class
+br\edu\posgraduacao\validador\ValidadorCNPJTest$CnpjValido.class
+br\edu\posgraduacao\validador\ValidadorCNPJTest.class
+br\edu\posgraduacao\validador\ValidadorCPFTest$DigitosVerificadoresErrados.class
+br\edu\posgraduacao\validador\ValidadorCNPJTest$FormatoInvalido.class
+br\edu\posgraduacao\validador\ValidadorCPFTest$CpfValido.class
