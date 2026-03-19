@@ -37,9 +37,22 @@ jobs:
       - name: Test
         run: mvn -B test
 
-      - name: Publish Tests Resume
+      - name: Publish test summary
         if: always()
         run: |
-          echo "## Test Results: " >> $GITHUB_STEP_SUMMARY
-          mvn -B surefire-report:report-only
-          echo "target/site/surefire-report.html" >> $GITHUB_STEP_SUMMARY
+          TOTAL=0; FAILURES=0; ERRORS=0; SKIPPED=0
+          for f in target/surefire-reports/TEST-*.xml; do
+            TOTAL=$((TOTAL     + $(grep -oP 'tests="\K[0-9]+'     "$f" | head -1)))
+            FAILURES=$((FAILURES + $(grep -oP 'failures="\K[0-9]+' "$f" | head -1)))
+            ERRORS=$((ERRORS   + $(grep -oP 'errors="\K[0-9]+'    "$f" | head -1)))
+            SKIPPED=$((SKIPPED + $(grep -oP 'skipped="\K[0-9]+'   "$f" | head -1)))
+          done
+          PASSED=$((TOTAL - FAILURES - ERRORS - SKIPPED))
+          echo "## Test Results Summary"        >> $GITHUB_STEP_SUMMARY
+          echo "| Metric    | Count |"           >> $GITHUB_STEP_SUMMARY
+          echo "|-----------|-------|"           >> $GITHUB_STEP_SUMMARY
+          echo "| Passed    | $PASSED   |"       >> $GITHUB_STEP_SUMMARY
+          echo "| Failures  | $FAILURES |"       >> $GITHUB_STEP_SUMMARY
+          echo "| Errors    | $ERRORS   |"       >> $GITHUB_STEP_SUMMARY
+          echo "| Skipped   | $SKIPPED  |"       >> $GITHUB_STEP_SUMMARY
+          echo "| Total     | $TOTAL    |"       >> $GITHUB_STEP_SUMMARY
