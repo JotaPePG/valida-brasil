@@ -20,7 +20,7 @@ public class ValidadorCPF {
             return false;
         }
 
-        return !validarDigito(numeros, 10); /* Bug Proposital */
+        return validarDigito(numeros, 10); /* Bug Corrigido */
 
     }
 
