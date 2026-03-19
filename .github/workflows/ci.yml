@@ -1,0 +1,38 @@
+name: CI - Valida Brasil
+
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+
+jobs:
+  build-and-test:
+    name: build and test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+
+      - name: JDK Config
+        uses: actions/setup-java@v5
+        with:
+          java-version: '25'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Env Vars Checkout
+        run: |
+          echo "========== Ambiente de CI =========="
+          java -version
+          mvn -version
+          echo "===================================="
+
+      - name: Compile
+        run: mvn -B compile
+
+      - name: Test
+        run: mvn -B test
