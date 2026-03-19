@@ -36,3 +36,10 @@ jobs:
 
       - name: Test
         run: mvn -B test
+
+      - name: Publish Tests Resume
+        if: always()
+        run: |
+          echo "## Test Results: " >> $GITHUB_STEP_SUMMARY
+          mvn -B surefire-report:report-only
+          echo "target/site/surefire-report.html" >> $GITHUB_STEP_SUMMARY
